@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=3 uid="uid://csu0p1iilrmk3"]
+
+[ext_resource type="Texture2D" uid="uid://bq2xe6ax34gsr" path="res://Assets/Sunny-land-files/Sunny-land-assets-files/PNG/sprites/gem/gem-1.png" id="1_ifewl"]
+[ext_resource type="Script" path="res://gem.gd" id="1_pfkt0"]
+[ext_resource type="Texture2D" uid="uid://sf3xhp8g4t6p" path="res://Assets/Sunny-land-files/Sunny-land-assets-files/PNG/sprites/gem/gem-2.png" id="2_cic3o"]
+[ext_resource type="Texture2D" uid="uid://dte2uk1nt0b52" path="res://Assets/Sunny-land-files/Sunny-land-assets-files/PNG/sprites/gem/gem-3.png" id="3_ri1jw"]
+[ext_resource type="Texture2D" uid="uid://d0ur1bipp4db5" path="res://Assets/Sunny-land-files/Sunny-land-assets-files/PNG/sprites/gem/gem-4.png" id="4_085fu"]
+[ext_resource type="Texture2D" uid="uid://dhifmbaig5qyw" path="res://Assets/Sunny-land-files/Sunny-land-assets-files/PNG/sprites/gem/gem-5.png" id="5_rkaps"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_abdv3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ifewl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_cic3o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ri1jw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_085fu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_rkaps")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jd6bc"]
+radius = 6.0
+height = 12.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ln2im"]
+radius = 2.0
+height = 4.0
+
+[node name="Gem" type="CharacterBody2D"]
+script = ExtResource("1_pfkt0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_abdv3")
+animation = &"Idle"
+
+[node name="PlayerCollect" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCollect"]
+shape = SubResource("CapsuleShape2D_jd6bc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ln2im")
+
+[connection signal="body_entered" from="PlayerCollect" to="." method="_on_player_collect_body_entered"]
